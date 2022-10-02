@@ -6,7 +6,7 @@ use std::process::Command;
 use tempfile::TempDir;
 
 #[test]
-fn test_serde() -> Result<()> {
+fn serde() -> Result<()> {
     // let temp_dir = TempDir::new().expect("unable to create temporary working directory");
     // let mut store = KvStore::open(temp_dir.path())?;
     let mut store = KvStore::open(&std::env::current_dir()?)?;
@@ -21,7 +21,7 @@ fn test_serde() -> Result<()> {
     Ok(())
 }
 #[test]
-fn test_dummy() -> Result<()> {
+fn dummy() -> Result<()> {
     let s = String::from("hh;dd;ll;");
 
     let sp = s.split(";");
@@ -32,3 +32,36 @@ fn test_dummy() -> Result<()> {
 
     Ok(())
 }
+
+// #[test]
+// fn my_own_compaction() -> Result<()> {
+
+//     let mut store = KvStore::open(&std::env::current_dir()?)?;
+
+//     for iter in 0..1000 {
+//         for key_id in 0..1000 {
+//             let key = format!("key{}", key_id);
+//             let value = format!("{}", iter);
+//             store.set(key.clone(), value)?;
+//             println!("get {:?}", store.get(key)?);
+//         }
+//         return Ok(())
+//         // let new_size = dir_size();
+//         // if new_size > current_size {
+//         //     current_size = new_size;
+//         //     continue;
+//         // }
+//         // // Compaction triggered.
+
+//         // drop(store);
+//         // // reopen and check content.
+//         // let mut store = KvStore::open(temp_dir.path())?;
+//         // for key_id in 0..1000 {
+//         //     let key = format!("key{}", key_id);
+//         //     assert_eq!(store.get(key)?, Some(format!("{}", iter)));
+//         // }
+//         // return Ok(());
+//     }
+
+//     Ok(())
+// }
