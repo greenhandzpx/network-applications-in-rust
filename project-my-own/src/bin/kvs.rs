@@ -1,7 +1,5 @@
 use clap::{Arg, ArgAction, Command};
 use kvs::KvStore;
-use std::error::Error;
-
 use kvs::KvError;
 use kvs::Result;
 
@@ -37,18 +35,15 @@ fn main() -> Result<()> {
         "set" => {
             kv_store.set(key.unwrap().clone(), value.unwrap().clone())?;
         }
-        "rm" => {
-            match kv_store.remove(key.unwrap().clone()) {
-                Err(err) => {
-                     println!("Key not found");
-                     return Err(err)
-                }
-                Ok(_) => ()
+        "rm" => match kv_store.remove(key.unwrap().clone()) {
+            Err(err) => {
+                println!("Key not found");
+                return Err(err);
             }
-        }
-        _ => return Err(KvError::UnknownOperation { op: op.to_string() })
+            Ok(_) => (),
+        },
+        _ => return Err(KvError::UnknownOperation { op: op.to_string() }),
     }
-        
+
     Ok(())
-    
 }

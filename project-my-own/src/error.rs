@@ -1,18 +1,13 @@
-
-use std::{result, io};
+use std::{io, result};
 
 #[derive(Fail, Debug)]
 pub enum KvError {
     #[fail(display = "Invalid command line args")]
     InvalidCommandLineArgs {},
     #[fail(display = "Unknown operation {}", op)]
-    UnknownOperation {
-        op: String
-    },
+    UnknownOperation { op: String },
     #[fail(display = "Key {} not found ", op)]
-    KeyNotFound {
-        op: String
-    },
+    KeyNotFound { op: String },
     #[fail(display = "File I/O error")]
     IOError {},
     #[fail(display = "Serde Json error")]
@@ -30,6 +25,5 @@ impl From<serde_json::Error> for KvError {
         KvError::SerdeError {}
     }
 }
-
 
 pub type Result<T> = result::Result<T, KvError>;
